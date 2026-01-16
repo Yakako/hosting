@@ -6,7 +6,7 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onStartPrediction }) => (
-  <div className="min-h-[calc(100vh-4rem)] xl:min-h-[calc(100vh-5rem)] items-center justify-center px-4 py-8 align-center">
+  <div className="min-h-[calc(100vh-4rem)] xl:min-h-[calc(100vh-5rem)] flex items-center justify-center px-4 py-8 ">
     <div className="text-center max-w-4xl xl:max-w-7xl 2xl:max-w-[90rem] w-full">
       <div className="mb-8 xl:mb-12">
         <Camera className="w-16 h-16 md:w-24 xl:w-32 2xl:w-40 2xl:h-40 text-blue-400 mx-auto mb-6 xl:mb-8" />

@@ -38,7 +38,7 @@ const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
             onChange={(e) => setAdminPassword(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && onAdminLogin()}
             placeholder="Enter password"
-            className="w-full px-4 xl:px-6 2xl:px-8 py-3 xl:py-4 2xl:py-5 border-2 border-gray-300 rounded-lg xl:rounded-xl 2xl:rounded-2xl mb-4 xl:mb-6 focus:outline-none focus:border-blue-500 text-base xl:text-lg 2xl:text-xl"
+            className="w-full px-4 xl:px-6 2xl:px-8 py-3 xl:py-4 2xl:py-5 border-2 border-gray-300 rounded-lg xl:rounded-xl 2xl:rounded-2xl mb-4 xl:mb-6 focus:outline-none focus:border-blue-500 text-base xl:text-lg 2xl:text-xl text-black"
           />
           <button
             onClick={onAdminLogin}
