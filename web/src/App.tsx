@@ -36,32 +36,58 @@ function App() {
   };
 
   const handleDetect = async () => {
-    if (!selectedImage) return;
+  if (!selectedImage) return;
 
-    setDetecting(true);
+  setDetecting(true);
 
-    // TODO: Replace with your actual model API call
-    setTimeout(() => {
-      const newResult: DetectionResult = {
-        brand: 'Tesla',
-        confidence: 0.95,
-        model: 'Model 3'
-      };
-      setResult(newResult);
+  try {
+    const formData = new FormData();
+    formData.append('image', selectedImage);
 
-      // Add to predictions history
-      const newPrediction: Prediction = {
-        id: predictions.length + 1,
-        timestamp: new Date().toLocaleString(),
-        brand: newResult.brand,
-        model: newResult.model || '',
-        confidence: newResult.confidence
-      };
-      setPredictions([newPrediction, ...predictions]);
+    const response = await fetch('http://localhost:8000/api/detect', {
+      method: 'POST',
+      body: formData,
+    });
 
-      setDetecting(false);
-    }, 2000);
-  };
+    if (!response.ok) {
+      throw new Error('Detection failed');
+    }
+
+    const data = await response.json();
+
+    // Backend response example:
+    // {
+    //   brand: "Tesla",
+    //   model: "Model 3",
+    //   confidence: 0.952
+    // }
+
+    const newResult: DetectionResult = {
+      brand: data.brand,
+      model: data.model,
+      confidence: data.confidence,
+    };
+
+    setResult(newResult);
+
+    // Save prediction history
+    const newPrediction: Prediction = {
+      id: predictions.length + 1,
+      timestamp: new Date().toLocaleString(),
+      brand: data.brand,
+      model: data.model,
+      confidence: data.confidence,
+    };
+
+    setPredictions((prev) => [newPrediction, ...prev]);
+  } catch (error) {
+    alert('Error detecting image');
+    console.error(error);
+  } finally {
+    setDetecting(false);
+  }
+};
+
 
   const handleReset = () => {
     setSelectedImage(null);
