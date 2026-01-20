@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Camera, Upload, X, Loader2, AlertCircle } from 'lucide-react';
+import type { DetectionResult } from '../types';
 
 // Updated interface to match your API response
 interface PredictionResponse {
@@ -11,7 +12,17 @@ interface PredictionResponse {
   message: string;
 }
 
-const PredictionPage: React.FC = () => {
+interface PredictionPageProps {
+  selectedImage: File | null;
+  preview: string | null;
+  detecting: boolean;
+  result: DetectionResult | null;
+  onImageSelect: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onDetect: () => Promise<void>;
+  onReset: () => void;
+}
+
+const PredictionPage: React.FC<PredictionPageProps> = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [detecting, setDetecting] = useState(false);

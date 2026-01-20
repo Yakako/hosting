@@ -40,7 +40,7 @@ const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
   onAdminLogin,
 }) => {
   const [stats, setStats] = useState<StatsResponse | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [_loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   /* ------------------- Data Fetching ------------------- */
@@ -140,7 +140,7 @@ const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 <YAxis dataKey="name" type="category" width={80} tick={{fill: '#4b5563', fontSize: 12}} />
                 <Tooltip cursor={{fill: 'transparent'}} />
                 <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={20}>
-                  {barData.map((entry, index) => (
+                  {barData.map((_entry, index) => (
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Bar>
@@ -165,7 +165,7 @@ const AnalyticsPage: React.FC<AnalyticsPageProps> = ({
                 </defs>
                 <XAxis dataKey="id" tick={false} />
                 <YAxis domain={[0, 1]} tickFormatter={(v) => `${(v*100).toFixed(0)}%`} />
-                <Tooltip formatter={(value: number) => `${(value * 100).toFixed(1)}%`} labelStyle={{display:'none'}} />
+                <Tooltip formatter={(value: number | undefined) => value !== undefined ? `${(value * 100).toFixed(1)}%` : 'N/A'} labelStyle={{display:'none'}} />
                 <Area type="monotone" dataKey="confidence" stroke="#10b981" fillOpacity={1} fill="url(#confGradient)" strokeWidth={3} />
               </AreaChart>
             </ResponsiveContainer>
