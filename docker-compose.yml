@@ -3,7 +3,7 @@
 services:
 
   api:
-    build: ./api
+    build: ../api
     container_name: car-classification-api
     ports:
       - "8000:8000"
@@ -15,16 +15,16 @@ services:
     networks:
       - adv-net
   
-  web:
-    build: ./web
-    container_name: car-classification-web
-    ports:
-      - "8080:80"
-    depends_on:
-      - api
-    restart: unless-stopped
-    networks:
-      - adv-net
+  # web:
+  #   build: ./web
+  #   container_name: car-classification-web
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - api
+  #   restart: unless-stopped
+  #   networks:
+  #     - adv-net
 
   postgres:
     image: postgres:16
@@ -35,7 +35,7 @@ services:
       - POSTGRES_DB=car_classification
 
     ports:
-      - "5433:5432"
+      - "5432:5432"
     restart: unless-stopped
     networks:
       - adv-net
